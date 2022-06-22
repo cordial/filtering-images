@@ -144,7 +144,7 @@ const Home: NextPage = () => {
                 wrapAround={true}
                 slidesToShow={1}>
               {newFiles().map((file, index) => {
-                return <div key={index} className="main-image" style={getImageStyle(process.env.PUBLIC_URL + file)}  />;
+                return <div key={index} className="main-image" style={getImageStyle("/"+ file)}  />;
               })}
             </Carousel>
           </div>
