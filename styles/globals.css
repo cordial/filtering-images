@@ -66,6 +66,11 @@ body {
   transition: background-color 150ms;
 }
 
+.sidebar-value {
+  margin:0 auto;
+  font-weight: bold;
+}
+
 .sidebar-item:hover, .sidebar-item:focus {
   background-color: hsl(265, 100%, 76%);
 }

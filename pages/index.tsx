@@ -153,6 +153,7 @@ const Home: NextPage = () => {
             <>{options.map((option, index) => {
               return (
                   <SidebarItem
+                      value={option.value}
                       key={index}
                       name={option.name}
                       active={index === selectedOptionIndex}
@@ -165,7 +166,6 @@ const Home: NextPage = () => {
               >
                 Export
               </button></>
-            <h1>{options[selectedOptionIndex].value}</h1>
           </div>
           <Slider
               min={selectedOption.range.min}
