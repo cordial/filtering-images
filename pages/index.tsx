@@ -110,28 +110,12 @@ const Home: NextPage = () => {
     return { filter: filters.join(' '), backgroundImage: "url(" + fileName  + ")" }
   }
 
-  const files = [
-    '_1_Robotics.jpg',
-    '_5_.jpg',
-    '_1_PicassoArt.jpg',
-    '_1_Guitar.jpg',
-    '_1_Lights.jpg',
-    '_2_BackBendColumns.jpg',
-    '_3_.jpg',
-    '_2_PulledDownHat.jpg',
-    'pexels-mart-production-8471931.jpg',
-    '_4_.jpg',
-    '_2_Microscope.jpg',
-    '_1_CreativeHomeSchool.jpg',
-    '_1_TeePee.jpg'
-  ]
-
   const newFiles = (() => {
     let fileNames = [];
-    for(let i=1;i<=128;i++) {
+    for(let i=1;i<=40;i++) {
       fileNames.push('File-' + i + '.jpg');
     }
-    return fileNames.concat(files);
+    return fileNames;
   });
 
   return (
