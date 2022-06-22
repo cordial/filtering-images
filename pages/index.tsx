@@ -86,11 +86,11 @@ const Home: NextPage = () => {
   const [options, setOptions] = useState(DEFAULT_OPTIONS)
   const selectedOption = options[selectedOptionIndex]
 
-  function handleSliderChange({ target }) {
+  function handleSliderChange(value:number) {
     setOptions(prevOptions => {
       return prevOptions.map((option, index) => {
         if (index !== selectedOptionIndex) return option
-        return { ...option, value: target.value }
+        return { ...option, value: value }
       })
     })
   }
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
     );
   }
 
-  function getImageStyle(fileName) {
+  function getImageStyle(fileName:string) {
     const filters = options.map(option => {
       return `${option.property}(${option.value}${option.unit})`
     })
@@ -139,11 +139,12 @@ const Home: NextPage = () => {
         <div className="container">
           <div className="carousel">
             <Carousel
+                // @ts-ignore
                 renderBottomCenterControls={false}
                 wrapAround={true}
                 slidesToShow={1}>
               {newFiles().map((file, index) => {
-                return <div key={index} className="main-image" style={getImageStyle(process.env.PUBLIC_URL + file)} alt="images"  />;
+                return <div key={index} className="main-image" style={getImageStyle(process.env.PUBLIC_URL + file)}  />;
               })}
             </Carousel>
           </div>
@@ -170,7 +171,7 @@ const Home: NextPage = () => {
               min={selectedOption.range.min}
               max={selectedOption.range.max}
               value={selectedOption.value}
-              handleChange={handleSliderChange}
+              handleChange={(e:React.ChangeEvent<HTMLInputElement>)=> handleSliderChange(parseInt(e.target.value))}
           />
         </div></>
   )
