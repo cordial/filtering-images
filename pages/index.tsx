@@ -111,11 +111,11 @@ const Home: NextPage = () => {
   }
 
   const files = [
-    '_1_Robotics.jpg',
-    '_1_PicassoArt.jpg',
-    '_1_Guitar.jpg',
-    '_1_Lights.jpg',
-    '_2_BackBendColumns.jpg',
+    'stock/_1_Robotics.jpg',
+    'stock/_1_PicassoArt.jpg',
+    'stock/_1_Guitar.jpg',
+    'stock/_1_Lights.jpg',
+    'stock/_2_BackBendColumns.jpg',
   ];
 
   const newFiles = (() => {
