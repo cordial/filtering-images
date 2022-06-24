@@ -7,6 +7,7 @@ import Carousel from 'nuka-carousel';
 import Slider from '../components/Slider'
 import SidebarItem from '../components/SidebarItem'
 import fileSaver from "file-saver";
+import {Color, RGBColor, SketchPicker} from 'react-color';
 
 const DEFAULT_OPTIONS = [
   {
@@ -83,6 +84,8 @@ const DEFAULT_OPTIONS = [
 
 const Home: NextPage = () => {
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(0)
+  const [displayColorPicker, setDisplayColorPicker] = useState(false)
+  const [color, setColor] = useState<RGBColor>({r:250, g:250, b:210, a:0})
   const [options, setOptions] = useState(DEFAULT_OPTIONS)
   const selectedOption = options[selectedOptionIndex]
 
@@ -107,7 +110,7 @@ const Home: NextPage = () => {
     const filters = options.map(option => {
       return `${option.property}(${option.value}${option.unit})`
     })
-    return { filter: filters.join(' '), backgroundImage: "url(" + fileName  + ")" }
+    return { filter: filters.join(' '), backgroundImage: `linear-gradient(to right, rgba(${color.r }, ${color.g }, ${color.b }, ${color.a }) 0%, rgba(${color.r }, ${color.g }, ${color.b }, ${color.a }) 100%), url(${fileName})` }
   }
 
   const files = [
@@ -126,8 +129,21 @@ const Home: NextPage = () => {
     return fileNames.concat(files);
   });
 
+  function handleClick() {
+    setDisplayColorPicker(!displayColorPicker)
+  };
+
+  function handleClose() {
+    setDisplayColorPicker(false)
+  };
+
+  function onChangeComplete(){
+    return { background: `rgba(${color.r }, ${color.g }, ${color.b }, ${color.a })`}
+  }
+
   return (
       <>
+
         <div className="container">
           <div className="carousel">
             <Carousel
@@ -136,7 +152,7 @@ const Home: NextPage = () => {
                 wrapAround={true}
                 slidesToShow={1}>
               {newFiles().map((file, index) => {
-                return <div key={index} className="main-image" style={getImageStyle("/"+ file)}  />;
+                return <div key={index} className="main-image" style={getImageStyle("/"+ file)}  />
               })}
             </Carousel>
           </div>
@@ -153,11 +169,20 @@ const Home: NextPage = () => {
                   />
               )
             })}
-              <button
+              <button className="export"
                   onClick={handleExport}
               >
                 Export
-              </button></>
+              </button>
+              <div className="color-picker">
+                <div className="swatch" onClick={ handleClick }>
+                  <div className="color" style={onChangeComplete()}/>
+                </div>{ displayColorPicker ? <div className="popover">
+                <div className="cover" onClick={ handleClose }/>
+                <SketchPicker color={ color } onChange={(color) => setColor(color.rgb)} />
+              </div> : null }
+              </div>
+            </>
           </div>
           <Slider
               min={selectedOption.range.min}
